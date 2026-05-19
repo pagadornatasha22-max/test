@@ -110,11 +110,11 @@ app.delete("/api/users/:id", async (req, res) => {
 
 // Login
 app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { identifier, password } = req.body;
   try {
     const [rows] = await pool.query(
-      "SELECT id, username, email, full_name, contact_number, address, role FROM users WHERE email = ? AND password_hash = ?",
-      [email, password]
+      "SELECT id, username, email, full_name, contact_number, address, role FROM users WHERE (email = ? OR username = ?) AND password_hash = ?",
+      [identifier, identifier, password]
     );
     if (rows.length > 0) {
       res.json({ success: true, user: rows[0] });
