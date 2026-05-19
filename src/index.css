@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  
+  /* Luxury Emerald & Gold Theme */
+  --color-emerald-50: #f0f7f5;
+  --color-emerald-100: #d6eae4;
+  --color-emerald-600: #1b6b5b;
+  --color-emerald-700: #134e42;
+  --color-emerald-800: #0d2e27;
+  
+  --color-gold-50: #faf6ee;
+  --color-gold-100: #f4edd9;
+  --color-gold-400: #e6c895;
+  --color-gold-500: #c39c59;
+  --color-gold-600: #b08746;
+  --color-gold-700: #8c6833;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #faf8f5;
+  color: #2b2927;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Glassmorphism elements */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-dark {
+  background: rgba(13, 46, 39, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Luxury gradients */
+.gold-gradient {
+  background: linear-gradient(135deg, #e6c895 0%, #c39c59 50%, #b08746 100%);
+}
+
+.emerald-gradient {
+  background: linear-gradient(135deg, #1b6b5b 0%, #134e42 100%);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #faf8f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #dcd7ce;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c39c59;
+}
