@@ -19,7 +19,7 @@ const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
+  database: process.env.MYSQL_DATABASE || 'macels_flower_shop',
   port: Number(process.env.MYSQL_PORT) || 3306,
   ssl: {
     rejectUnauthorized: false // Required for secure Aiven communication
@@ -278,7 +278,7 @@ app.put("/api/orders/:id/approve", async (req, res) => {
 app.put("/api/orders/:id/reject", async (req, res) => {
   const { reason } = req.body;
   try {
-    await pool.query("UPDATE orders SET status = 'Rejected' WHERE id = ?", [req.params.id]);
+    await pool.query("UPDATE orders SET status = 'Payment Rejected' WHERE id = ?", [req.params.id]);
     res.json({ success: true, message: "Order rejected", reason });
   } catch (err) {
     res.status(500).json({ error: err.message });
