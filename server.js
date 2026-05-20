@@ -82,12 +82,19 @@ app.post("/api/users", async (req, res) => {
 
 // Update user (admin modification)
 app.put("/api/users/:id", async (req, res) => {
-  const { username, email, full_name, contact_number, address, role } = req.body;
+  const { username, email, full_name, contact_number, address, role, password_hash } = req.body;
   try {
-    await pool.query(
-      "UPDATE users SET username = ?, email = ?, full_name = ?, contact_number = ?, address = ?, role = ? WHERE id = ?",
-      [username, email, full_name, contact_number, address, role, req.params.id]
-    );
+    if (password_hash) {
+      await pool.query(
+        "UPDATE users SET username = ?, email = ?, full_name = ?, contact_number = ?, address = ?, role = ?, password_hash = ? WHERE id = ?",
+        [username, email, full_name, contact_number, address, role, password_hash, req.params.id]
+      );
+    } else {
+      await pool.query(
+        "UPDATE users SET username = ?, email = ?, full_name = ?, contact_number = ?, address = ?, role = ? WHERE id = ?",
+        [username, email, full_name, contact_number, address, role, req.params.id]
+      );
+    }
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
