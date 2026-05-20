@@ -54,7 +54,7 @@ export interface CartItem {
   itemTotal: number;
 }
 
-export type OrderStatus = 'Pending' | 'Preparing' | 'Ready for Pickup' | 'Completed' | 'Rejected';
+export type OrderStatus = 'Payment Verification Pending' | 'Payment Rejected' | 'Pending' | 'Preparing' | 'Ready for Pickup' | 'Completed' | 'Rejected';
 
 export interface Order {
   id: string;
