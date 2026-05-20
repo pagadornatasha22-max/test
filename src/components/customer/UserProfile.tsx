@@ -96,7 +96,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ currentUser, onUpdateU
 
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1">
-              Default Pickup / Delivery Address *
+              Customer Address *
             </label>
             <div className="relative">
               <div className="absolute top-3.5 left-0 pl-3.5 flex items-start pointer-events-none text-stone-400">
