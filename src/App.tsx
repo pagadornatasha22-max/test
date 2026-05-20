@@ -388,7 +388,8 @@ export const App: React.FC = () => {
           full_name: updatedUser.fullName,
           contact_number: updatedUser.contactNumber,
           address: updatedUser.address,
-          role: updatedUser.role
+          role: updatedUser.role,
+          password_hash: updatedUser.password
         })
       });
     } catch (err) {
@@ -547,7 +548,6 @@ export const App: React.FC = () => {
       <main className="flex-1">
         {pageView === 'login' && (
           <Login
-            users={users}
             onLoginSuccess={handleLoginSuccess}
             onNavigate={setPageView}
             addToast={addToast}
