@@ -151,7 +151,7 @@ export const Register: React.FC<RegisterProps> = ({ users, onRegisterSuccess, on
 
           <div>
             <label className="block text-sm font-semibold text-stone-700 mb-1">
-              Complete Delivery/Pickup Address *
+              Your Complete Address *
             </label>
             <div className="relative">
               <div className="absolute top-3 left-0 pl-3.5 flex items-start pointer-events-none text-stone-400">
