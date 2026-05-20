@@ -187,7 +187,9 @@ export const App: React.FC = () => {
 
   const handleLoginSuccess = (user: User) => {
     setCurrentUser(user);
-    if (user.role === 'admin') {
+    const normalizedRole = user.role?.trim().toLowerCase();
+    
+    if (normalizedRole === 'admin') {
       setPageView('admin-dash');
       setAdminTab('overview');
     } else {
@@ -294,11 +296,13 @@ export const App: React.FC = () => {
   const handleConfirmOrder = (orderData: Omit<Order, 'id' | 'orderNumber' | 'status' | 'createdAt'>): Order => {
     const orderId = `ord-${Date.now()}`;
     const orderNumber = `MFS-${Math.floor(1000 + Math.random() * 9000)}`;
+    
+    // Set status to "Payment Verification Pending" as expected by database enum
     const newOrder: Order = {
       ...orderData,
       id: orderId,
       orderNumber,
-      status: 'Pending',
+      status: 'Payment Verification Pending',
       createdAt: new Date().toISOString(),
     };
 
