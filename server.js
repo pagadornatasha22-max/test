@@ -32,7 +32,7 @@ const pool = mysql.createPool({
 // Test database connection
 pool.getConnection()
   .then(connection => {
-    console.log('✅ Successfully connected to Aiven MySQL database');
+    console.log(`✅ Successfully connected to MySQL database on ${process.env.MYSQL_HOST || 'localhost'}`);
     connection.release();
   })
   .catch(err => {
@@ -118,17 +118,27 @@ app.delete("/api/users/:id", async (req, res) => {
 // Login
 app.post("/api/login", async (req, res) => {
   const { identifier, password } = req.body;
+  console.log(`[LOGIN ATTEMPT] identifier: "${identifier}", password: "${password}"`);
   try {
     const [rows] = await pool.query(
       "SELECT id, username, email, full_name, contact_number, address, role FROM users WHERE (email = ? OR username = ?) AND password_hash = ?",
       [identifier, identifier, password]
     );
+    console.log(`[LOGIN RESULT] found ${rows.length} rows`);
     if (rows.length > 0) {
       res.json({ success: true, user: rows[0] });
     } else {
+      // For debugging: check if the user exists but with a wrong password
+      const [userCheck] = await pool.query("SELECT id FROM users WHERE email = ? OR username = ?", [identifier, identifier]);
+      if (userCheck.length > 0) {
+         console.log(`[LOGIN FAIL] User exists, but password did not match.`);
+      } else {
+         console.log(`[LOGIN FAIL] User not found in database.`);
+      }
       res.status(401).json({ success: false, message: "Invalid credentials" });
     }
   } catch (err) {
+    console.error(`[LOGIN ERROR]`, err);
     res.status(500).json({ error: err.message });
   }
 });
